@@ -1,0 +1,49 @@
+variable ?
+int age = 23; (0 to 65535)
+1 2 3 4 5 6 .......
+char city = 'H'
+
+real -> x 
+
+a + b
+a , b  
+
+Identifier ? 
+Identifier is the smallest part of program.
+compiler reads this every word and convert into machine level language.
+----------------------------------------------------------------------------------------------------------
+Predefined : Meaning of these words are allready known by compiler.so you dont have to tell compiler explicitly.
+->Ex:  int , char , real  --> allready known by compiler.
+userdefined --->Ex:  a, b , c ----> Not known by compiler.
+
+----------------------------------------------------------------------------------------------------------
+c language have 32 keywords(predefined)
+
+----------------------------------------------------------------------------------
+1. unsigned --> 0 to 65535 
+2. signed --> -1 to -65535
+----------------------------------------------------------------------------------
+Data types : 
+Q) find the range of each data type in c ?
+1. int a -- > 0 to 65535 
+2. char b --> single character inside double quotes.
+3. float c --> EX: 23.455 , 3.4 --> any number having decimal in it is float 
+4. double x --> Ex: 23.4555667847548
+
+1. String name --> 'Rahul'
+   int number = 12345 
+
+5. void 
+
+-----------------------------------------------------------------------------
+Hello.c
+
+
+void main(){
+	int x = 3;
+	int y = 5;
+	return 0;
+}
+
+
+
