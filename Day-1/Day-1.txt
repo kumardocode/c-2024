@@ -1,0 +1,26 @@
+1. Why c ?
+2. History of c ?
+
+1. basic building block (language) , logic building
+2. orcale  is build in c language.
+3. Android - core library --> c 
+4. Device driver -pendrive/bluetooth -> software - c languge 
+5. web-browser - c language 
+6. Unix operating system - c language 
+
+History :
+1. Martin Richards 
+	 Developer : BCPL - > Basic combined programming language (1966)
+2. Kenthompson - >  B language
+3. C language - Denis ritchie (1972)
+							At & T bell labs ( Unix os )
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+What is computer ?
+Def : - computer is an electronic device that takes input and gives you output. 
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+What is 0 and 1 ?
+010101010101 ( Assembly language )
+010101010101
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+Ram:  volatile memory 

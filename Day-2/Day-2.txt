@@ -1,0 +1,27 @@
+Identifiers : 
+1. constant 
+2. variables
+3. keywords
+
+constant : Value cant be changed (any information is constant )
+				 Data = information = constant 
+Primary constant :  
+1. Integer
+	any number having a round figure without a decimal is know as integer
+	ex:  4, 5, 6, 7 ,8 ,-6 
+			age
+
+2. Real number: 
+	any number having decimal is a real number
+	e: 3.4, 5,6 , 8.65 
+3. Character constant : any one character inside double quotes is known is character constant 
+	ex:  'a', 'h', '+'
+
+Q) choose which are correct character constant ?
+	1. '-3' --> no
+  2. '9.7' -> no 
+  3. any name - no 
+  4. 'Bhopal' - no 
+  5. 56 - no 
+	6. ' '
+

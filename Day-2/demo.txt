@@ -1,0 +1,30 @@
+1.computer is a dumb.
+
+The file that we make for making a software is having extention with c
+Q) 2. Is this a software sum.c ?
+Q) human redable language 
+1. sum.c(source file) -> sum.obj -> sum.exe
+
+1. sum.c
+2. preprocessor 
+3. compiler 
+4. library files 
+5. linker 
+
+------------------------------------
+Q) What is the diffrence between compiler and interpreter ?
+1. compiler 
+2. cross compiler 
+3. Decompiler 
+4. Transpiler 
+5. Interpreter 
+6. JIT (just in time) compiler : it is mixed feature of compiler and interpreter 
+
+1. compiler : A compiler is a software that transform your written code into machine readable language.
+2. cross-compiler : If compiler program is run on a different cpu or operating system the compiler is known as cross-compiler
+3. Decompiler is inverse of compiler it converts the low level language into high level language.
+4. A program that translate between high level language to other high level language is known as transpiler.
+5. Interpreter : 
+
+
+
