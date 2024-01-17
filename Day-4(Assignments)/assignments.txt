@@ -1,0 +1,31 @@
+Q1. Problem Description
+Print first 5 odd numbers i.e. 1, 3, 5, 7, 9.
+Output Format
+Print first five odd numbers separated by space.
+Example Output
+1 3 5 7 9
+-------------------------------------------------------------------------------------
+Q2.
+Problem Description
+Print first 5 even numbers i.e. 0, 2, 4, 6, 8.
+Output Format
+Print first five even numbers separated by space.
+Example Output
+0 2 4 6 8
+------------------------------------------------------------------------------------
+Q3.
+What is the correct output ?do it in your program and match the output you get?
+int a = 5 + 5 * 2 + 2 * 2 + (2 * 3);
+------------------------------------------------------------------------------------
+Q4.
+What is the correct output ?
+int x = 10;
+printf(x+1);
+printf(x);
+-------------------------------------------------------------------------------------
+Q5
+Who invented C language?
+-------------------------------------------------------------------------------------
+Q6. 
+C language is a successor to which programming language?
+-------------------------------------------------------------------------------------
