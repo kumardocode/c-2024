@@ -1,0 +1,36 @@
+Datatype : 
+8 bit => 01010101 (binary number)
+8 bit => 1 byte 
+int a; 
+int b;   	--size (4 byte) + 4 byte
+char a; 			--size (1 byte)
+float	 x;			--size (4 byte)
+double y;			--size (8 byte)
+
+Total size = 21 byte 
+
+int main() { 
+int a , b; (decleration)
+a = 10; (defination)
+b = 20;
+int c = a * b;
+}
+--------------------------------------------------------
+Garbage value - look for defination.?
+---------------------------------------------------------
+Format specifer : - 
+1. %d is for int 
+2. %c is for char 
+3. %f is for float
+4. %lf is for double 
+
+Note : Double quotes treats any thing inside it as a string. 
+
+Q) ASCII value ?
+
+
+
+
+
+
+

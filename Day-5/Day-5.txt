@@ -1,0 +1,47 @@
+1. Operators ( Arithmetic operators ) 
+ + , - , = , * , / , % 
+Ex :  int a = 2;
+		  int b = 3;
+			int res = a( operands ) +(operator) b(operands);
+			int res = a - b;
+			int res = a * b;
+
+			int res = (a * b) + a-b + a + b + a % b;
+			int res = (6) + 2-3 + 2 + 3 + a % b;
+			single operator is also known as unary operator ex: + , - , * , / , % 
+			= -> assignment operator
+			== - > Equality check operator
+					char x = 'A';
+					char y = 'B';
+					char z = 'A';
+					a == b - > False 
+					x == y - > false 
+					x == z -> true 
+
+2. conditional operator : 
+	a )  > , < , <= , >= , !(not)
+		example of ! - > 
+		int a = !0;
+					
+3. 
+// Online C compiler to run C program online
+// Q3.
+// What is the correct output ?do it in your program and match the output you get?
+// int a = 5 + 5 * 2 + 2 * 2 + (2 * 3);
+
+#include <stdio.h>
+
+int main() {
+    // Write C code here
+    // int x = 5 + 5 * 2 + 2 * 2 + (2 * 3);
+    int x = 100;
+    int y = 200;
+    int a = 5;
+    int b = 5;
+    int c = 2;
+    int d = 2;
+    printf("%d",x);
+    return 0;
+}
+
+2. operators executes as per their precedence.
