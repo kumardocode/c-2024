@@ -1,0 +1,80 @@
+operator 
+	1. unary 
+	2. preincrement
+	3. postincrement
+	4. predecrement
+	5. postdecrement
+
+-----------------------------------------------------------------------------------------------------
+#include<conio.h>
+getch() -> it is also used to take input from user but it has some limitations 
+			-> it can only read a single character.
+			-Ex:  1 , 3 , 'A' 
+			-EX: 30
+To overcome from this draw back we are using --> scanf()
+	 1. scanf() -> used to read input given by the user using command line.
+						-> predefined function
+						->defination rely on #include<stdio.h>
+
+ 
+Format specifier :
+	1. %d is for int 
+	2. %c is for char 
+	3. %f is for float
+	4. %lf is for double
+ 
+Sudo code :-
+	void main(){
+	int a; // 10
+	scanf("%d", a);
+ 	int b; // 20 
+	scanf("%d", b);
+ 	int res = a+b;
+}
+computer differentiate how to treat the value given by user is first number and second number.
+	1. sperated by space 
+	2. seprated by tab space 
+	3. new line 
+
+-------------------------------------------
+Arithmetic operators: (unaray operator)
++, -, * , % , / , = , ++, --
+	Ex of % -> 5 % 2 = 1;
+	Ex of /  -> 5 / 2 = 2;
+
+int a = 10;
+1. preincrement Ex : --> ++a 
+2. postincrement Ex: --> a++
+3. predecrement Ex : --> --a;
+4. postdecrement	Ex: --> a--;
+---------------------------------------------------------------------------
+ A/Q to bodmass rule and operator presedence : 4+2*4 (expression)
+---------------------------------------------------------------------------
+
+#include<stdio.h>
+int main(){
+int x = 5;
+printf("First : %d\n",x); //  5            5
+x++;   // x = x+1
+printf("Second : %d\n",x);  //  6             6
+++x; // x = x+1
+printf("Third: %d\n",x);   // 7
+//---------------------------------------------------------------------
+int y = 10;
+printf("First : %d\n",y);  //    10
+y--;   // x = x-1
+printf("Second : %d\n",y); //  9
+--y; // x = x-1
+printf("Third: %d",y);  // 8
+}
+
+
+
+
+
+
+
+
+
+
+
