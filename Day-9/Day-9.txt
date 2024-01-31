@@ -1,0 +1,42 @@
+#include<stdio.h>
+void main(){
+  int x = 2.5 % 3;
+  printf("%d",x);
+}
+
+1. Error (compile time error)
+--------------------------------------------------
+int c ;
+True = 1;
+False = 0;
+Relational operator 
+1. <   ( less than )     Ex :  2 < 3 = true(1)
+2. >   (greater than )   Ex :  5 > 20 = false (0)
+3. ==  ( equality check operator)  Ex :  5 == 6   - >  false(0) ,     6 == 6  -> (True) 1
+4. = 	( Assignment operator)				Ex = int x = 2;
+5. !  ( not operator)               Ex :    5 > 20 = false(0)  ,  !(5 > 20) = true(1)
+6. != ( not equal )                Ex :    5 != 8 - > true(1) ,   !(5 != 8) =    false,
+7. conditional operator :  ?         Ex :     ( 5 > 3) ? 'Ram' : 'Laxhman' ,
+
+void main(){
+int bank_balance = 5000;
+int withdrawal_amount = 8000
+int remaining_bal = bank_balance - withdrawal_amount 
+int result = ( bank_balance > withdrawal ) ? remaining_bal : 'Insufficient_Balance';
+printf("%d, result);
+}
+
+//syntax 
+(expression) ? ( return exp-1/ result) :  (return exp-2 / result)
+
+---------------------------------------------------------------------------------
+
+H/W - swap two numbers and display them in order ?
+Ex :2 3  -- output -> 3 , 2
+				 int a = 2;
+				 int b = 3;
+
+Output :  int a = 3;
+				 int b = 2;
+
+

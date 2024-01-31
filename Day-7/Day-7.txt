@@ -48,7 +48,7 @@ int a = 10;
 3. predecrement Ex : --> --a;
 4. postdecrement	Ex: --> a--;
 ---------------------------------------------------------------------------
- A/Q to bodmass rule and operator presedence : 4+2*4 (expression)
+ A/Q to bodmass rule and operator presedence : (4+2*4) (expression)
 ---------------------------------------------------------------------------
 
 #include<stdio.h>
