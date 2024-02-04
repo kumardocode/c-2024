@@ -1,0 +1,131 @@
+int myNumbers[] = {25, 50, 75, 100};
+Linear representation of data 
+------------------------------------------------
+Tree :  Hirarchial represantation of data 
+1. Preorder Traversal
+  1. Root
+  2. Left
+  3. Right
+
+2. Inorder Traversal
+	1. Left subtree
+	2. Root
+	3. Right
+
+3. PostOrder Traversal
+	1. Left 
+	2. Right
+	3. Root
+
+4. LevelOrder Traversal 
+
+Ex: 1, 2 , 4 , -1, 5 , -1 , -1 , 3 , -1 , 6, -1 , -1  
+----------------------------------------------------
+
+1. Infix:-
+	Expression which is in normal format i.e the operator lises in between the operands
+	Ex: A + B, 
+		  A * C, 
+			A / B,
+			(A+B/C*(D+E)-F)
+			
+2. Prefix:-
+	Operator comes first followed by the operands
+	Ex: +AB, -AB, *AC
+
+PostFix:-
+3. The operand comes first followed by the operator 
+	EX: AB- , AB+ , AB*
+
+# Conversion from Infix to postfix 
+	Operators : + , - , * , / , (, )
+	Operands: A, B, C, X, Y , Z
+
+Rules: :- 
+	1. Priorities of operator 
+		^ -> have the highest priority
+		*, / -> next priority
+		+, - -> lowest priority
+	2. No two operator of having same priority can stay together.
+	3.lowest priority operator cannot be placed on top of highest priority operator 
+	4. if any ( & ) forms closing then we will need to POP() that operator 
+
+
+Ex:  (A+B/C*(D+E)-F) -> convert this expression into postfix expression 
+
+Symbol 				Stack 					Postfix 
+(							(							_____
+A							(								A
++							(+								A
+B							(+								AB
+/							(+/							AB
+C							(+/							ABC
+*							(+*							ABC/
+(							(+*(							ABC/
+D							(+*(							ABC/D
++							(+*(+						ABC/D
+E							(+*(+						ABC/DE
+)							(+*							ABC/DE+
+-							(+-							ABC/DE+*
+-							(-							ABC/DE+*+
+F							(-							ABC/DE+*+F
+)							(-)							ABC/DE+*+F
+)							___						ABC/DE+*+F-
+
+Result: - > ABC/DE+*+F-
+---------------------------------------------------------------------------
+
+(A*(b+c)+(b/d)*a+z*u)
+
+Symbol 							stack 						postfix
+0. 	A								____						A
+1. 	*								*							  A
+2. 	(								*(								A
+3. 	b								*(								Ab
+4. 	+								*(+							Ab
+5. 	c								*(+							Abc
+6. 	)								*						 		Abc+
+7.  +								+							  Abc+*
+8.		(								+(								Abc+*
+9.		b								+(								Abc+*b
+10. /								+(/							Abc+*b
+11. d								+(/							Abc+*bd
+12. )								+								Abc+*bd/
+13. *								+*							Abc+*bd/
+14.	a               +*							Abc+*bd/a
+15. +								+								Abc+*bd/a*+
+16. z								+								Abc+*bd/a*+z
+17. *								+*							Abc+*bd/a*+z
+18. u								+*							Abc+*bd/a*+zu  
+19. __             									Abc+*bd/a*+zu*+
+
+
+Result : Abc+*bd/a*+zu*+
+
+
+--------------------------------------------------------------------------------------------
+2. Inorder Traversal
+	1. Left subtree
+	2. Root
+	3. Right
+
+1. Preorder Traversal
+  1. Root
+  2. Left
+  3. Right
+
+Question ? 
+Make binary tree from inorder and preorder traversal 
+a) InOrder : 16 , 22, 31, 15, 46, 77, 19
+b) Preorder: 15, 22, 16, 31, 77, 46, 19
+
+-------------------------------------------------------------------------------
+Minimum spanning tree
+1. Prims algorithm 
+2. Krushkals algorithm 
+
+Prims algorithm 
+	1. Select any connected node having minimum weight .
+	2. select unvisited vertex(node) which is adjacent to visited node with min weight 
+
+
