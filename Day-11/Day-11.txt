@@ -1,0 +1,11 @@
+if () {
+  //some code 
+}else if(){
+//some code 
+}else if(){
+//some code
+}else if(){
+//some do 
+}else{
+}
+

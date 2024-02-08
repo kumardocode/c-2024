@@ -1,0 +1,34 @@
+conditional statements
+if , else (keyword)
+
+1= true
+0 = fasle 
+-------------------------
+1. 
+if (true) {
+	//do something
+}
+------------------------
+EX:  int RamAge = 50;
+int RahulAge = 22;
+int RakhiAge = 24;
+
+2. 
+if (RahulAge > RamAge) {
+	printf("Rahul is Elder than Ram");
+} else {
+	printf("Ram is Elder than Rahul");
+}
+---------------------------
+3. ( Wrong )
+Rule: Else statement cannot be written without if statement.
+else {
+ // do something
+}
+-------------------------
+
+comments in c : 
+1. // 
+2. /* ----- */
+
+
