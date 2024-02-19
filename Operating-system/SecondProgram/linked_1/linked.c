@@ -1,15 +1,3 @@
-/*Exp no:2(c) LINKED FILE ALLOCATION
- AIM: Write a C Program to implement Linked File Allocation method.
-ALGORITHM:
-Step 1: Create a queue to hold all pages in memory
-Step 2: When the page is required replace the page at the head of the queue
-Step 3: Now the new page is inserted at the tail of the queue
-Step 4: Create a stack
-Step 5: When the page fault occurs replace page present at the bottom of the stack
-Step 6: Stop the allocation.
-Program:*/
-
-
 #include<stdio.h>
 struct file
 {

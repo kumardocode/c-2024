@@ -29,7 +29,7 @@ scanf("%d", &c);
 if(c==1)
 goto x;
 else
-return 0;
+return 1;
 }
 
 

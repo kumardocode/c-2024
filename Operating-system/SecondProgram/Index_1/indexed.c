@@ -1,5 +1,3 @@
-/* Program to simulate indexed file allocation strategy */
-//Program Code:
 #include<stdio.h>
 #include<stdlib.h>
 void main()
@@ -48,29 +46,3 @@ goto x;
 else
 exit(0);
 }
-
-
-/*Program Output:
-Enter the index block: 5
-Enter no of blocks needed and no of files for the index 5 on the disk :
-4
-1 2 3 4
-Allocated
-File Indexed
-5-------->1 : 1
-5-------->2 : 1
-5-------->3 : 1
-5-------->4 : 1
-Do you want to enter more file(Yes - 1/No - 0)1
-Enter the index block: 4
-4 index is already allocated
-Enter the index block: 6
-Enter no of blocks needed and no of files for the index 6 on the disk :
-2
-7 8
-A5llocated
-File Indexed
-6-------->7 : 1
-6-------->8 : 1
-Do you want to enter more file(Yes - 1/No - 0)0
-*/
