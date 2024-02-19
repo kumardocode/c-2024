@@ -1,0 +1,6 @@
+Q)  Take 3 numbers from user and print the greatest number amongst them ?
+Input :  A, B, C  
+Output : MAX(A,B,C);
+Q)  Take 3 numbers from user and print the smallest number amongst them ?
+Input :  A, B, C  
+Output : MIN(A,B,C);

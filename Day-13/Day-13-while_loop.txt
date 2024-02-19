@@ -1,0 +1,18 @@
+1. If , else is a conditional statement
+2. While, do while, for --> These are looping 
+Syntax : 
+
+while( condition ) {
+//some code;
+}
+
+Q) Take a number from user and print all the numbers in between from 1----N.
+5 
+1,2,3,4,5
+i++ =>  i+1
+(Wrong Format (Infinite loop))
+i        N          i<= N           print 
+1      6            true              6
+1     6             true              6
+1     6             true              6
+1     6            true              6

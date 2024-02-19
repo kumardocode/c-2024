@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)https://www.programming9.com/programs/c-programs/285-page-replacement-programs-in-c -->
+<html lang="en-GB" dir="ltr" class="g-offcanvas-css3"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="icon" type="image/x-icon" href="https://www.programming9.com/images/p9-favicon.png">
+
+<meta name="author" content="Marshal Truman">
+<meta name="description" content="C program for finding page faults count for various Page replacement algorithms such as FIFO, Optimal, LRU and LFU.">
+<meta name="generator" content="Joomla! - Open Source Content Management">
+<title>Page Replacement Programs in C</title>
+<link href="./Page Replacement Programs in C_files/awesomplete.css" rel="stylesheet" nonce="">
+<link href="./Page Replacement Programs in C_files/coy.css" rel="stylesheet" nonce="">
+<link href="./Page Replacement Programs in C_files/linenumbers-previewers.css" rel="stylesheet" nonce="">
+<link href="./Page Replacement Programs in C_files/content.min.css" rel="stylesheet" nonce="">
+<link href="./Page Replacement Programs in C_files/nucleus.css" rel="stylesheet" nonce="">
+<link href="./Page Replacement Programs in C_files/helium_26.css" rel="stylesheet" nonce="">
+<link href="./Page Replacement Programs in C_files/bootstrap5.css" rel="stylesheet" nonce="">
+<link href="./Page Replacement Programs in C_files/joomla-fontawesome.min.css" rel="stylesheet" nonce="">
+<link href="./Page Replacement Programs in C_files/debug.css" rel="stylesheet" nonce="">
+<link href="./Page Replacement Programs in C_files/font-awesome.min.css" rel="stylesheet" nonce="">
+<link href="./Page Replacement Programs in C_files/helium-joomla_26.css" rel="stylesheet" nonce="">
+<link href="./Page Replacement Programs in C_files/custom_26.css" rel="stylesheet" nonce="">
+<style nonce="">p a {
+    text-decoration: underline;
+}
+body {
+font-weight: 500;
+color: #000000;
+}</style>
+<script type="text/javascript" async="" src="./Page Replacement Programs in C_files/analytics.js" nonce=""></script><script type="text/javascript" async="" src="./Page Replacement Programs in C_files/js" nonce=""></script><script src="./Page Replacement Programs in C_files/f.txt" nonce=""></script><script type="application/json" class="joomla-script-options loaded" nonce="">{"joomla.jtext":{"MOD_FINDER_SEARCH_VALUE":"Search &hellip;","JLIB_JS_AJAX_ERROR_OTHER":"An error has occurred while fetching the JSON data: HTTP %s status code.","JLIB_JS_AJAX_ERROR_PARSE":"A parse error has occurred while processing the following JSON data:<br><code style=\"color:inherit;white-space:pre-wrap;padding:0;margin:0;border:0;background:inherit;\">%s<\/code>"},"finder-search":{"url":"\/component\/finder\/?task=suggestions.suggest&format=json&tmpl=component&Itemid=101"},"system.paths":{"root":"","rootFull":"https:\/\/www.programming9.com\/","base":"","baseFull":"https:\/\/www.programming9.com\/"},"csrf.token":"f3fd3ca4e17e7074d01e08ad9b1445fc"}</script>
+<script src="./Page Replacement Programs in C_files/core.min.js" nonce=""></script>
+<script src="./Page Replacement Programs in C_files/finder-es5.min.js" nomodule="" defer="" nonce=""></script>
+<script src="./Page Replacement Programs in C_files/awesomplete.min.js" defer="" nonce=""></script>
+<script src="./Page Replacement Programs in C_files/finder.min.js" type="module" nonce=""></script>
+<script src="./Page Replacement Programs in C_files/prism-previewers-copy.js" async="" nonce=""></script>
+<script src="./Page Replacement Programs in C_files/js(1)" async="" nonce=""></script>
+<script nonce="">      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-46731615-1');
+
+          </script>
+<script data-ad-client="ca-pub-5447899856735796" async="" src="./Page Replacement Programs in C_files/f(1).txt" data-checked-head="true"></script>
+<meta http-equiv="origin-trial" content="As0hBNJ8h++fNYlkq8cTye2qDLyom8NddByiVytXGGD0YVE+2CEuTCpqXMDxdhOMILKoaiaYifwEvCRlJ/9GcQ8AAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="AgRYsXo24ypxC89CJanC+JgEmraCCBebKl8ZmG7Tj5oJNx0cmH0NtNRZs3NB5ubhpbX/bIt7l2zJOSyO64NGmwMAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A/ERL66fN363FkXxgDc6F1+ucRUkAhjEca9W3la6xaLnD2Y1lABsqmdaJmPNaUKPKVBRpyMKEhXYl7rSvrQw+AkAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MTkzNTk5OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A6OdGH3fVf4eKRDbXb4thXA4InNqDJDRhZ8U533U/roYjp4Yau0T3YSuc63vmAs/8ga1cD0E3A7LEq6AXk1uXgsAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MTkzNTk5OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="As0hBNJ8h++fNYlkq8cTye2qDLyom8NddByiVytXGGD0YVE+2CEuTCpqXMDxdhOMILKoaiaYifwEvCRlJ/9GcQ8AAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="AgRYsXo24ypxC89CJanC+JgEmraCCBebKl8ZmG7Tj5oJNx0cmH0NtNRZs3NB5ubhpbX/bIt7l2zJOSyO64NGmwMAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3MTk1MzI3OTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A/ERL66fN363FkXxgDc6F1+ucRUkAhjEca9W3la6xaLnD2Y1lABsqmdaJmPNaUKPKVBRpyMKEhXYl7rSvrQw+AkAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MTkzNTk5OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A6OdGH3fVf4eKRDbXb4thXA4InNqDJDRhZ8U533U/roYjp4Yau0T3YSuc63vmAs/8ga1cD0E3A7LEq6AXk1uXgsAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MTkzNTk5OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="AymqwRC7u88Y4JPvfIF2F37QKylC04248hLCdJAsh8xgOfe/dVJPV3XS3wLFca1ZMVOtnBfVjaCMTVudWM//5g4AAAB7eyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGV0YWdtYW5hZ2VyLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1RoaXJkUGFydHkiOnRydWV9"><script async="" src="./Page Replacement Programs in C_files/ca-pub-5447899856735796" nonce=""></script><script async="" src="./Page Replacement Programs in C_files/AGSKWxVdzkt8yU7-ORLfe7f9UlRE_sSrB0IAHtIX4MV2IHIpdaaY7A-bShCVnQmWO3XtPVXDVa26Rv32SoPXmB_7QEYzZVJQro1gFkAQk0RP6wXxp80tCaF6dgDB88U_-jI77Rv2wzfaZw==" nonce=""></script><script async="" src="./Page Replacement Programs in C_files/AGSKWxU2aZ7ZY_UkC3tlBYCVq9sEqFjfWwUftoy1fuGx-S_ZDO7m1hRTIm2rZ4YSz8bBTbXuameey_gjXME9XP_A0v65zVrJech2Reluz7toK8_pWMH-FmFW7eTkrwxhJX2KS48iN1Sntg==" nonce=""></script><script async="" src="./Page Replacement Programs in C_files/AGSKWxWrOW2J8X7RSrCt-VhEciG0MltqvIM-jAlv6_tB9az1JmM3VsrjwPS4kdty8KMg8GLiHCxRGeruZU05SlpoDEJeqJbkcFt_iwm-fJLOblBceIbFoTOwsTXhGVkxZH1e8kUW-O3iBA==" nonce=""></script></head>
+<body class="gantry g-helium-style site com_content view-article no-layout no-task dir-ltr itemid-630 outline-26 g-offcanvas-left g-default g-style-preset1">
+<div id="g-offcanvas" data-g-offcanvas-swipe="0" data-g-offcanvas-css3="1" style="">
+<div class="g-grid">
+<div class="g-block hidden size-100">
+<div id="mobile-menu-5697-particle" class="g-content g-particle"> <div id="g-mobilemenu-container" data-g-menu-breakpoint="48rem"></div>
+</div>
+</div>
+</div>
+</div>
+<div id="g-page-surround" style="height: auto !important; min-height: 0px !important;"><div class="g-menu-overlay"></div>
+<div class="g-offcanvas-hide g-offcanvas-toggle" role="navigation" data-offcanvas-toggle="" aria-controls="g-offcanvas" aria-expanded="false"><i class="fa fa-fw fa-bars"></i></div>
+<section id="g-navigation">
+<div class="g-container"> <div class="g-grid">
+<div class="g-block size-20">
+<div id="logo-6382-particle" class="g-content g-particle"> <a href="https://www.programming9.com/" target="_self" title="programming9" aria-label="programming9" rel="home" class="g-logo g-logo-helium">
+programming9
+</a>
+</div>
+</div>
+<div class="g-block size-60 center">
+<div id="menu-4143-particle" class="g-content g-particle"> <nav class="g-main-nav" data-g-hover-expand="true">
+<ul class="g-toplevel">
+<li class="g-menu-item g-menu-item-type-component g-menu-item-637 g-standard  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/raptor-flowcharts">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">Flowcharts</span>
+</span>
+</a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-629 g-parent active g-standard g-menu-item-link-parent ">
+<a class="g-menu-item-container" href="https://www.programming9.com/programs">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">Programs</span>
+</span>
+<span class="g-menu-parent-indicator" data-g-menuparent=""></span> </a>
+<ul class="g-dropdown g-inactive g-fade g-dropdown-right">
+<li class="g-dropdown-column">
+<div class="g-grid">
+<div class="g-block size-100">
+<ul class="g-sublevel">
+<li class="g-level-1 g-go-back">
+<a class="g-menu-item-container" href="https://www.programming9.com/programs/c-programs/285-page-replacement-programs-in-c#" data-g-menuparent=""><span>Back</span></a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-630 active  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/programs/c-programs">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">C Programs</span>
+</span>
+</a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-915  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/programs/cpp-programs">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">C++ Programs</span>
+</span>
+</a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-632  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/programs/java">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">Java Programs</span>
+</span>
+</a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-647  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/programs/python">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">Python Codes</span>
+</span>
+</a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-633  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/programs/html-codes">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">HTML Codes</span>
+</span>
+</a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-634  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/programs/java-script-codes">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">Java Script Codes</span>
+</span>
+</a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-635  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/programs/database">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">SQL Codes</span>
+</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</li>
+</ul>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-643 g-parent g-standard g-menu-item-link-parent ">
+<a class="g-menu-item-container" href="https://www.programming9.com/tutorials">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">Tutorials</span>
+</span>
+<span class="g-menu-parent-indicator" data-g-menuparent=""></span> </a>
+<ul class="g-dropdown g-inactive g-fade g-dropdown-right">
+<li class="g-dropdown-column">
+<div class="g-grid">
+<div class="g-block size-100">
+<ul class="g-sublevel">
+<li class="g-level-1 g-go-back">
+<a class="g-menu-item-container" href="https://www.programming9.com/programs/c-programs/285-page-replacement-programs-in-c#" data-g-menuparent=""><span>Back</span></a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-815  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/tutorials/java-tutorials">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">Java Tutorials</span>
+</span>
+</a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-859  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/tutorials/competitive-programming">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">Competitive Programming</span>
+</span>
+</a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-813  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/tutorials/python-tutorials">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">Python Tutorials</span>
+</span>
+</a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-975  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/tutorials/c-programming">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">C Programming</span>
+</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</li>
+</ul>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-323 g-standard  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/blog">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">Blog</span>
+</span>
+</a>
+</li>
+<li class="g-menu-item g-menu-item-type-component g-menu-item-846 g-standard  ">
+<a class="g-menu-item-container" href="https://www.programming9.com/login">
+<span class="g-menu-item-content">
+<span class="g-menu-item-title">Login</span>
+</span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class="g-block size-20">
+<div class="g-content">
+<div class="platform-content"><div class="smart-searchh moduletable ">
+<form class="mod-finder js-finder-searchform form-search" action="https://www.programming9.com/search" method="get" role="search">
+<label for="mod-finder-searchword331" class="visually-hidden finder">Search</label><div class="mod-finder__search input-group"><div class="awesomplete"><input type="text" name="q" id="mod-finder-searchword331" class="js-finder-search-query form-control" value="" placeholder="Search …" autocomplete="off" aria-expanded="false" aria-owns="awesomplete_list_1" role="combobox"><ul hidden="" role="listbox" id="awesomplete_list_1"></ul><span class="visually-hidden" role="status" aria-live="assertive" aria-atomic="true">Type 2 or more characters for results.</span></div><button class="btn btn-primary" type="submit"><span class="icon-search icon-white" aria-hidden="true"></span> Search</button></div>
+</form>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="g-container-main" class="g-wrapper" style="height: auto !important;">
+<div class="g-container" style="height: auto !important;"> <div class="g-grid" style="height: auto !important;">
+<div class="g-block size-73">
+<main id="g-mainbar">
+<div class="g-grid">
+<div class="g-block size-100">
+<div class="g-content">
+<div class="platform-content container"><div class="row"><div class="col"><div class="com-content-article item-page" itemscope="" itemtype="https://schema.org/Article">
+<meta itemprop="inLanguage" content="en-GB">
+<div class="page-header">
+<h1 itemprop="headline">
+Page Replacement Programs in C </h1>
+</div>
+<dl class="article-info text-muted">
+<dt class="article-info-term">
+</dt>
+<dd class="createdby" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+<span class="icon-user icon-fw" aria-hidden="true"></span>
+Written by: <span itemprop="name">Marshal Truman</span> </dd>
+</dl>
+<ul class="tags list-inline">
+<li class="list-inline-item tag-44 tag-list0" itemprop="keywords">
+<a href="https://www.programming9.com/component/tags/tag/operating-systems" class="btn btn-sm btn-info">
+Operating Systems </a>
+</li>
+</ul>
+<div itemprop="articleBody" class="com-content-article__body">
+<div class="code-toolbar"><pre class="line-numbers language-c" tabindex="0"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token keyword">int</span> n<span class="token punctuation">,</span>nf<span class="token punctuation">;</span>
+<span class="token keyword">int</span> in<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> p<span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> hit<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> i<span class="token punctuation">,</span>j<span class="token punctuation">,</span>k<span class="token punctuation">;</span>
+<span class="token keyword">int</span> pgfaultcnt<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">getData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nEnter length of page reference sequence:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nEnter the page reference sequence:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nEnter no of frames:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>nf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    pgfaultcnt<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>nf<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">9999</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">isHit</span><span class="token punctuation">(</span><span class="token keyword">int</span> data<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    hit<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span>nf<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">==</span>data<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            hit<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> hit<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">getHitIndex</span><span class="token punctuation">(</span><span class="token keyword">int</span> data<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> hitind<span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>k<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> k<span class="token operator">&lt;</span>nf<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">==</span>data<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            hitind<span class="token operator">=</span>k<span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> hitind<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">dispPages</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>k<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> k<span class="token operator">&lt;</span>nf<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">!=</span><span class="token number">9999</span><span class="token punctuation">)</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">" %d"</span><span class="token punctuation">,</span>p<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">dispPgFaultCnt</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nTotal no of page faults:%d"</span><span class="token punctuation">,</span>pgfaultcnt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">fifo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nFor %d :"</span><span class="token punctuation">,</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isHit</span><span class="token punctuation">(</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+
+            <span class="token keyword">for</span><span class="token punctuation">(</span>k<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> k<span class="token operator">&lt;</span>nf<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+                p<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">=</span>p<span class="token punctuation">[</span>k<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+            p<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">=</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            pgfaultcnt<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token function">dispPages</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"No page fault"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">dispPgFaultCnt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">void</span> <span class="token function">optimal</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> near<span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nFor %d :"</span><span class="token punctuation">,</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isHit</span><span class="token punctuation">(</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+
+            <span class="token keyword">for</span><span class="token punctuation">(</span>j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span>nf<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> pg<span class="token operator">=</span>p<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">int</span> found<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+                <span class="token keyword">for</span><span class="token punctuation">(</span>k<span class="token operator">=</span>i<span class="token punctuation">;</span> k<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+                <span class="token punctuation">{</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span>pg<span class="token operator">==</span>in<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">{</span>
+                        near<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>k<span class="token punctuation">;</span>
+                        found<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token keyword">else</span>
+                        found<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>found<span class="token punctuation">)</span>
+                    near<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">9999</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">int</span> max<span class="token operator">=</span><span class="token operator">-</span><span class="token number">9999</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> repindex<span class="token punctuation">;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span>j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span>nf<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>near<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">&gt;</span>max<span class="token punctuation">)</span>
+                <span class="token punctuation">{</span>
+                    max<span class="token operator">=</span>near<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    repindex<span class="token operator">=</span>j<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            p<span class="token punctuation">[</span>repindex<span class="token punctuation">]</span><span class="token operator">=</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            pgfaultcnt<span class="token operator">++</span><span class="token punctuation">;</span>
+
+            <span class="token function">dispPages</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"No page fault"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">dispPgFaultCnt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">lru</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">int</span> least<span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nFor %d :"</span><span class="token punctuation">,</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isHit</span><span class="token punctuation">(</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+
+            <span class="token keyword">for</span><span class="token punctuation">(</span>j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span>nf<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> pg<span class="token operator">=</span>p<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">int</span> found<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+                <span class="token keyword">for</span><span class="token punctuation">(</span>k<span class="token operator">=</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> k<span class="token operator">&gt;=</span><span class="token number">0</span><span class="token punctuation">;</span> k<span class="token operator">--</span><span class="token punctuation">)</span>
+                <span class="token punctuation">{</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span>pg<span class="token operator">==</span>in<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">{</span>
+                        least<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span>k<span class="token punctuation">;</span>
+                        found<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token keyword">else</span>
+                        found<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>found<span class="token punctuation">)</span>
+                    least<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">=</span><span class="token operator">-</span><span class="token number">9999</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">int</span> min<span class="token operator">=</span><span class="token number">9999</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> repindex<span class="token punctuation">;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span>j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span>nf<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>least<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token operator">&lt;</span>min<span class="token punctuation">)</span>
+                <span class="token punctuation">{</span>
+                    min<span class="token operator">=</span>least<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    repindex<span class="token operator">=</span>j<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            p<span class="token punctuation">[</span>repindex<span class="token punctuation">]</span><span class="token operator">=</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            pgfaultcnt<span class="token operator">++</span><span class="token punctuation">;</span>
+
+            <span class="token function">dispPages</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"No page fault!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">dispPgFaultCnt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">lfu</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> usedcnt<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> least<span class="token punctuation">,</span>repin<span class="token punctuation">,</span>sofarcnt<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>bn<span class="token punctuation">;</span>
+    <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>nf<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        usedcnt<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n For %d :"</span><span class="token punctuation">,</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isHit</span><span class="token punctuation">(</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> hitind<span class="token operator">=</span><span class="token function">getHitIndex</span><span class="token punctuation">(</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            usedcnt<span class="token punctuation">[</span>hitind<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"No page fault!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span>
+        <span class="token punctuation">{</span>
+            pgfaultcnt<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>bn<span class="token operator">&lt;</span>nf<span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                p<span class="token punctuation">[</span>bn<span class="token punctuation">]</span><span class="token operator">=</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                usedcnt<span class="token punctuation">[</span>bn<span class="token punctuation">]</span><span class="token operator">=</span>usedcnt<span class="token punctuation">[</span>bn<span class="token punctuation">]</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
+                bn<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">else</span>
+            <span class="token punctuation">{</span>
+                least<span class="token operator">=</span><span class="token number">9999</span><span class="token punctuation">;</span>
+                <span class="token keyword">for</span><span class="token punctuation">(</span>k<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> k<span class="token operator">&lt;</span>nf<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span>usedcnt<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token operator">&lt;</span>least<span class="token punctuation">)</span>
+                    <span class="token punctuation">{</span>
+                        least<span class="token operator">=</span>usedcnt<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                        repin<span class="token operator">=</span>k<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                p<span class="token punctuation">[</span>repin<span class="token punctuation">]</span><span class="token operator">=</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                sofarcnt<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+                <span class="token keyword">for</span><span class="token punctuation">(</span>k<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> k<span class="token operator">&lt;=</span>i<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">==</span>in<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                        sofarcnt<span class="token operator">=</span>sofarcnt<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
+                usedcnt<span class="token punctuation">[</span>repin<span class="token punctuation">]</span><span class="token operator">=</span>sofarcnt<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token function">dispPages</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+    <span class="token function">dispPgFaultCnt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">secondchance</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> usedbit<span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> victimptr<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>nf<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        usedbit<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nFor %d:"</span><span class="token punctuation">,</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">isHit</span><span class="token punctuation">(</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"No page fault!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> hitindex<span class="token operator">=</span><span class="token function">getHitIndex</span><span class="token punctuation">(</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>usedbit<span class="token punctuation">[</span>hitindex<span class="token punctuation">]</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span>
+                usedbit<span class="token punctuation">[</span>hitindex<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span>
+        <span class="token punctuation">{</span>
+            pgfaultcnt<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>usedbit<span class="token punctuation">[</span>victimptr<span class="token punctuation">]</span><span class="token operator">==</span><span class="token number">1</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token keyword">do</span>
+                <span class="token punctuation">{</span>
+                    usedbit<span class="token punctuation">[</span>victimptr<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+                    victimptr<span class="token operator">++</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span>victimptr<span class="token operator">==</span>nf<span class="token punctuation">)</span>
+                        victimptr<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">while</span><span class="token punctuation">(</span>usedbit<span class="token punctuation">[</span>victimptr<span class="token punctuation">]</span><span class="token operator">!=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>usedbit<span class="token punctuation">[</span>victimptr<span class="token punctuation">]</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                p<span class="token punctuation">[</span>victimptr<span class="token punctuation">]</span><span class="token operator">=</span>in<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                usedbit<span class="token punctuation">[</span>victimptr<span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+                victimptr<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token function">dispPages</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>victimptr<span class="token operator">==</span>nf<span class="token punctuation">)</span>
+            victimptr<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">dispPgFaultCnt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">int</span> choice<span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nPage Replacement Algorithms\n1.Enter data\n2.FIFO\n3.Optimal\n4.LRU\n5.LFU\n6.Second Chance\n7.Exit\nEnter your choice:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>choice<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">switch</span><span class="token punctuation">(</span>choice<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> <span class="token number">1</span><span class="token operator">:</span>
+            <span class="token function">getData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token number">2</span><span class="token operator">:</span>
+            <span class="token function">fifo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token number">3</span><span class="token operator">:</span>
+            <span class="token function">optimal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token number">4</span><span class="token operator">:</span>
+            <span class="token function">lru</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token number">5</span><span class="token operator">:</span>
+            <span class="token function">lfu</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token number">6</span><span class="token operator">:</span>
+            <span class="token function">secondchance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">default</span><span class="token operator">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<p>&nbsp;</p>
+<p><span style="font-size: 12pt;">Sample OUTPUT</span>:</p>
+<pre>Page Replacement Algorithms
+1.Enter data
+2.FIFO
+3.Optimal
+4.LRU
+5.LFU
+6.Second Chance
+7.Exit
+Enter your choice:1
+
+Enter length of page reference sequence:8
+
+Enter the page reference sequence:2
+3
+4
+2
+3
+5
+6
+2
+
+Enter no of frames:3
+
+Page Replacement Algorithms
+1.Enter data
+2.FIFO
+3.Optimal
+4.LRU
+5.LFU
+6.Second Chance
+7.Exit
+Enter your choice:2
+
+For 2 : 2
+For 3 : 2 3
+For 4 : 2 3 4
+For 2 :No page fault
+For 3 :No page fault
+For 5 : 3 4 5
+For 6 : 4 5 6
+For 2 : 5 6 2
+Total no of page faults:6
+Page Replacement Algorithms
+1.Enter data
+2.FIFO
+3.Optimal
+4.LRU
+5.LFU
+6.Second Chance
+7.Exit
+Enter your choice:3
+
+For 2 : 2
+For 3 : 2 3
+For 4 : 2 3 4
+For 2 :No page fault
+For 3 :No page fault
+For 5 : 2 5 4
+For 6 : 2 6 4
+For 2 :No page fault
+Total no of page faults:5
+Page Replacement Algorithms
+1.Enter data
+2.FIFO
+3.Optimal
+4.LRU
+5.LFU
+6.Second Chance
+7.Exit
+Enter your choice:4
+
+For 2 : 2
+For 3 : 2 3
+For 4 : 2 3 4
+For 2 :No page fault!
+For 3 :No page fault!
+For 5 : 2 3 5
+For 6 : 6 3 5
+For 2 : 6 2 5
+Total no of page faults:6
+Page Replacement Algorithms
+1.Enter data
+2.FIFO
+3.Optimal
+4.LRU
+5.LFU
+6.Second Chance
+7.Exit
+Enter your choice:5
+
+ For 2 : 2
+ For 3 : 2 3
+ For 4 : 2 3 4
+ For 2 :No page fault!
+ For 3 :No page fault!
+ For 5 : 2 3 5
+ For 6 : 2 3 6
+ For 2 :No page fault!
+Total no of page faults:5
+Page Replacement Algorithms
+1.Enter data
+2.FIFO
+3.Optimal
+4.LRU
+5.LFU
+6.Second Chance
+7.Exit
+Enter your choice:7
+
+</pre> </div>
+<nav class="pagenavigation">
+<span class="pagination ms-0">
+<a class="btn btn-sm btn-secondary previous" href="https://www.programming9.com/programs/c-programs/302-implementation-of-stack-using-array-in-c" rel="prev">
+<span class="visually-hidden">
+Previous article: Implementation of Stack Using Array in C </span>
+<span class="icon-chevron-left" aria-hidden="true"></span> <span aria-hidden="true">Prev</span> </a>
+<a class="btn btn-sm btn-secondary next" href="https://www.programming9.com/programs/c-programs/270-c-program-to-implement-quick-sort" rel="next">
+<span class="visually-hidden">
+Next article: C Program for Quick Sort </span>
+<span aria-hidden="true">Next</span> <span class="icon-chevron-right" aria-hidden="true"></span> </a>
+</span>
+</nav>
+</div></div></div></div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<div class="g-block size-27" style="height: auto !important;">
+<aside id="g-sidebar" style="height: auto !important;">
+<div class="g-grid">
+<div class="g-block size-100">
+<div class="g-content">
+<div class="platform-content"><div class="right-top-ad moduletable ">
+<script async="" src="./Page Replacement Programs in C_files/f(1).txt"></script>
+
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:600px" data-ad-client="ca-pub-5447899856735796" data-ad-slot="5939397906" data-adsbygoogle-status="done" data-ad-status="unfilled"><div id="aswift_1_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 600px; width: 300px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;border:0;width:300px;height:600px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="300" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Page Replacement Programs in C_files/ads.html" data-google-container-id="a!2" data-google-query-id="CK6a4dz1tIQDFf6BSwUddXsEfQ" data-load-complete="true"></iframe></div></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+</div>
+</div>
+</div>
+<div class="g-grid">
+<div class="g-block size-100">
+<div class="g-content">
+<div class="platform-content"><div class="sidebar moduletable ">
+<ul class="mod-articleslatest latestnews mod-list">
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/128-c-program-to-find-area-and-circumference-of-a-circle" itemprop="url">
+<span itemprop="name">
+C Program to Find Area and Circumference of a circle. </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/194-swapping-of-two-numbers-using-call-by-reference-in-c-functions" itemprop="url">
+<span itemprop="name">
+Swapping of Two Numbers Using Call By Reference in C </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/132-c-program-to-find-sum-of-5-subjects-and-percentage" itemprop="url">
+<span itemprop="name">
+C Program to Find Sum of 5 Subjects and Percentage </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/89-c-program-to-swap-two-numbers-without-using-third-variable" itemprop="url">
+<span itemprop="name">
+C Program to Swap Two Numbers without using Third Variable </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/212-c-program-to-sort-an-array-using-selection-sort" itemprop="url">
+<span itemprop="name">
+C Program to Sort an Array using SELECTION SORT </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/169-c-program-to-print-elements-of-array-using-pointers" itemprop="url">
+<span itemprop="name">
+C Program to Print Elements of Array Using Pointers </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/172-c-program-to-calculate-sum-of-marks-to-demonstrate-structures" itemprop="url">
+<span itemprop="name">
+C Program to Calculate Sum of Marks to Demonstrate Structures </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/314-bit-stuffing-program-in-c" itemprop="url">
+<span itemprop="name">
+Bit Stuffing Program in C </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/114-c-program-to-design-lexical-analyzer" itemprop="url">
+<span itemprop="name">
+C Program to Design Lexical Analyzer </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/368-gcd-of-two-numbers-without-using-lcm" itemprop="url">
+<span itemprop="name">
+GCD of Two Numbers Without using LCM in C </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/59-c-program-to-convert-celsius-to-fahrenheit" itemprop="url">
+<span itemprop="name">
+C Program to convert Celsius to Fahrenheit </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/119-c-program-for-floyd-s-triangle" itemprop="url">
+<span itemprop="name">
+C Program for Floyd Triangle </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/165-c-program-to-simulate-priority-cpu-scheduling-algorithm" itemprop="url">
+<span itemprop="name">
+C Program to Simulate PRIORITY CPU Scheduling Algorithm </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/205-tower-of-hanoi-using-recursive-and-non-recursive-c-program" itemprop="url">
+<span itemprop="name">
+C Program to Solve Tower of Hanoi Problem Using Recursive and Non-Recursive </span>
+</a>
+</li>
+<li itemscope="" itemtype="https://schema.org/Article">
+<a href="https://www.programming9.com/programs/c-programs/192-c-program-to-find-length-of-a-string-using-strlen" itemprop="url">
+<span itemprop="name">
+C Program to Find Length of a String Using STRLEN() </span>
+</a>
+</li>
+</ul>
+</div></div>
+</div>
+</div>
+</div>
+<div class="g-grid" style="height: auto !important;">
+<div class="g-block size-100" style="height: auto !important;">
+<div class="g-content" style="height: auto !important;">
+<div class="platform-content"><div class="right-bottom-ad moduletable ">
+
+<ins class="adsbygoogle" style="display: block; height: 0px;" data-ad-client="ca-pub-5447899856735796" data-ad-slot="3775958904" data-ad-format="auto" data-full-width-responsive="true" data-adsbygoogle-status="done" data-ad-status="unfilled"><div id="aswift_2_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 0px; width: 274px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: hidden; opacity: 0;"><iframe id="aswift_2" name="aswift_2" style="left: 0px; position: absolute; top: 0px; border: 0px; width: 274px; height: 0px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="274" height="0" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Page Replacement Programs in C_files/ads(1).html" data-google-container-id="a!3" data-google-query-id="CJXN4dz1tIQDFYodgwMdo3EKMA" data-load-complete="true"></iframe></div></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+</section>
+<div class="google-auto-placed" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-5447899856735796" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 0px;" data-ad-status="unfilled"><div id="aswift_3_host" style="border: none; height: 0px; width: 1200px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: hidden; opacity: 0;" tabindex="0" title="Advertisement" aria-label="Advertisement"><iframe id="aswift_3" name="aswift_3" style="left: 0px; position: absolute; top: 0px; border: 0px; width: 1200px; height: 0px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="1200" height="0" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Page Replacement Programs in C_files/ads(2).html" data-google-container-id="a!4" data-google-query-id="CI6Pwd_1tIQDFXnIPAId5LsA0Q" data-load-complete="true"></iframe></div></ins></div><footer id="g-footer" class="nomarginall nopaddingall">
+<div class="g-container"> <div class="g-grid">
+<div class="g-block size-100 center">
+<div id="horizontalmenu-7257-particle" class="g-content g-particle"> <ul class="g-horizontalmenu ">
+<li>
+<a target="_blank" href="https://www.programming9.com/blog/307-privacy" title="Privacy Policy">Privacy Policy</a>
+</li>
+<li>
+<a target="_blank" href="https://www.programming9.com/blog/419-cookie" title="Cookie Policy">Cookie Policy</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="g-grid">
+<div class="g-block size-100 center g-social-header">
+<div id="social-9750-particle" class="g-content g-particle"> <div class="g-social social-items">
+<a href="https://twitter.com/programming_9" target="_blank" rel="noopener noreferrer">
+<span class="fa fa-twitter fa-fw"></span> <span class="g-social-text"></span> </a>
+<a href="https://www.facebook.com/programming9" target="_blank" rel="noopener noreferrer">
+<span class="fa fa-facebook fa-fw"></span> <span class="g-social-text"></span> </a>
+</div>
+</div>
+</div>
+</div>
+<div class="g-grid">
+<div class="g-block size-100 center">
+<div id="copyright-1035-particle" class="g-content g-particle"> <div class="g-copyright ">
+©
+programming9.com
+2024
+</div>
+</div>
+</div>
+</div>
+<div class="g-grid">
+<div class="g-block size-90">
+<div class="spacer"></div>
+</div>
+<div class="g-block size-10">
+<div id="totop-8774-particle" class="g-content g-particle"> <div class="">
+<div class="g-totop">
+<a href="https://www.programming9.com/programs/c-programs/285-page-replacement-programs-in-c#" id="g-totop" rel="nofollow" title="Back to top" aria-label="Back to top">
+Back to top <i class="fa fa-chevron-up fa-fw"></i> </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script type="text/javascript" src="./Page Replacement Programs in C_files/main.js"></script>
+<script defer="" src="./Page Replacement Programs in C_files/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon="{&quot;rayId&quot;:&quot;85765e9d18f33fcf&quot;,&quot;r&quot;:1,&quot;version&quot;:&quot;2024.2.0&quot;,&quot;token&quot;:&quot;0e6f79a7d381485e9dada94bc280d53f&quot;}" crossorigin="anonymous"></script>
+
+
+<ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./Page Replacement Programs in C_files/ads(3).html" data-google-container-id="a!1" data-load-complete="true"></iframe></div></ins><iframe name="googlefcPresent" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;" src="./Page Replacement Programs in C_files/saved_resource.html"></iframe><iframe name="__tcfapiLocator" src="./Page Replacement Programs in C_files/saved_resource(1).html" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcInactive" src="./Page Replacement Programs in C_files/saved_resource(2).html" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe name="googlefcLoaded" src="./Page Replacement Programs in C_files/saved_resource(3).html" style="display: none; width: 0px; height: 0px; border: none; z-index: -1000; left: -1000px; top: -1000px;"></iframe><iframe src="./Page Replacement Programs in C_files/aframe.html" width="0" height="0" style="display: none;"></iframe></body><iframe id="google_esf" name="google_esf" src="./Page Replacement Programs in C_files/zrt_lookup_fy2021.html" style="display: none;"></iframe></html>

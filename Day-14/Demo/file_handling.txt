@@ -10,8 +10,8 @@ int main()
 	FILE* filePointer;
 
 	// Get the data to be written in file
-	char dataToBeWritten[50] = "This is MCA Final term program -A Computer "
-							"Student name is Rakhi";
+	char dataToBeWritten[50] = "GeeksforGeeks-A Computer "
+							"Science Portal for Geeks";
 
 	// Open the existing file GfgTest.c using fopen()
 	// in write mode using "w" attribute
