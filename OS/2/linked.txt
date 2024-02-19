@@ -11,22 +11,20 @@ Program:*/
 
 
 #include<stdio.h>
-#include<conio.h>
 struct file
 {
  char fname[10];
  int start,size,block[10];
 }f[10];
-main()
+int main()
 {
  int i,j,n;
- clrscr();
  printf("Enter no. of files:");
  scanf("%d",&n);
  for(i=0;i<n;i++)
  {
  printf("Enter file name:");
- scanf("%s",&f[i].fname);
+ scanf("%s",f[i].fname);
  printf("Enter starting block:");
  scanf("%d",&f[i].start);
  f[i].block[0]=f[i].start;
@@ -47,7 +45,6 @@ main()
  printf("%d",f[i].block[j]);
  printf("\n");
  }
- getch();
 }
 
 /*
